@@ -1,19 +1,15 @@
 import PySimpleGUI as sg
-import logging
-
 
 class SurgeryHelper:
 
     def __init__(self):  # Define layout & Setup
-        print("Class Init Started")
 
-        print("Setting layouts")
+        self.surg_rem_key = ""
+        self.surg_rep_key = ""
+
         self.set_layout()
-        print("Layouts set ")
 
-        print("Layout Defined")
         self.checkMain()
-        print("checkMain Complete!")
 
     def set_layout(self):
         ## Surgery Stuff Here
@@ -47,12 +43,12 @@ class SurgeryHelper:
 
         # TODO: Finish implementing instructions
         # TODO: Work out how to setup dynamic instructions based on Combo, updates in the match I guess?
-        # TODO: Try adding in the icons from the SS13 wiki and a "Tools" Section - Hardcode the images (Better Perf)
+        # TODO: Try adding in the icons from the SS13 wiki and a "Tools" Section - Resources for images
 
         surgery_layout = [
             [sg.Combo(surgery_options, default_value=surgery_options[0],enable_events=True, readonly=True,key="-Surgery-")],
             [sg.Text("Removal"),sg.VerticalSeparator(),sg.Text("Replacement")],
-            [sg.Text(self.surgery_removal,key="-surgRem-"),sg.VerticalSeparator(),sg.Text(self.surgery_replacement,key="-surgRep-")]
+            [sg.Text("WIP"),sg.VerticalSeparator(),sg.Text("WIP")],
         ]
 
         ## Basic Med Stuff Here
@@ -145,6 +141,9 @@ class SurgeryHelper:
                         pass
                     case _:
                         print(event, " | ", values)
+
+    def getResource(self,resource_name):
+        return "/Resources/".join(resource_name).join(".png")
 
 
 _ = SurgeryHelper()

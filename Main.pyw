@@ -5,6 +5,10 @@ import subprocess
 import tkinter
 import logging
 
+# TODO: Re-write this to conform to dunder main
+# TODO: Setup a check for imports
+# TODO: Setup method of importing from "../modules/*"
+# TODO: Dynamic Tab Support
 
 def getValue(value, mult):
     try:

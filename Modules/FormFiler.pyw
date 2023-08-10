@@ -3,6 +3,9 @@ import os
 import subprocess
 import tkinter
 
+# TODO: Re-write this to conform to dunder main
+# TODO: Write this to either work standalone or as an import
+
 def name(name):
     return sg.Text(name + ' - ')
 
