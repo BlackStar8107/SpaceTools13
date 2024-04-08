@@ -1,7 +1,8 @@
 from numbers import Number
-import math
+from math import sqrt
 import gas
-import copy
+from copy import copy,deepcopy
+from loguru import logger
 
 # Global Variables #
 R_IDEAL_GAS_EQUATION = 8.3144626
@@ -54,15 +55,17 @@ class Turbine():
     
     # Main Process Call #
     def process(self):
-        self.air_contents = copy.copy(self.gas_content)
+        self.air_contents = copy(self.gas_content)
         gas = self.gas_content
         
+        print(f"Gasinit: {gas.temperature}\nNewGas: {self.air_contents.temperature}")
         if len(self.history) > self.history_max:
             self.history.pop(0) # Remove the OLDEST entry
         
         self.history.append([self.RPM,self.stattor_load,self.lastgen])
         
         input_starting_pressure = gas.mixture_pressure()
+        logger.debug(f"Starting Pressure: {input_starting_pressure}")
         
         transfer_moles = 0
         
@@ -96,17 +99,17 @@ class Turbine():
             newRPM = 0
             
             if delta_E - energy_generated > 0:
-                newRPM = self.RPM + math.sqrt(2 * (max(delta_E - energy_generated,0)) / self.turbine_mass)
+                newRPM = self.RPM + sqrt(2 * (max(delta_E - energy_generated,0)) / self.turbine_mass)
             else:
-                newRPM = self.RPM - math.sqrt(2 * (max(energy_generated - delta_E,0)) / self.turbine_mass)
+                newRPM = self.RPM - sqrt(2 * (max(energy_generated - delta_E,0)) / self.turbine_mass)
                 
             nextgen = self.stattor_load * (max(newRPM,0) / 60)
             nextRPM = 0
             
             if delta_E - nextgen > 0:
-                nextRPM = max(newRPM,0) + math.sqrt(2 * (max(nextgen - delta_E,0)) / self.turbine_mass)
+                nextRPM = max(newRPM,0) + sqrt(2 * (max(nextgen - delta_E,0)) / self.turbine_mass)
             else:
-                nextRPM = max(newRPM,0) - math.sqrt(2 * (max(delta_E - nextgen,0)) / self.turbine_mass)
+                nextRPM = max(newRPM,0) - sqrt(2 * (max(delta_E - nextgen,0)) / self.turbine_mass)
                 
             if newRPM < 0 or nextRPM < 0:
                 self.stalling = True
@@ -122,4 +125,4 @@ class Turbine():
             self.gas_content.volume = self.flow_rate
             self.air_contents.volume = self.flow_rate
             
-            print(f"RPM:{self.RPM}\nStalling: {self.stalling}\nOverspeed: {self.overspeed}\nGas Temp: {gas.temperature}")
+            print(f"RPM:{self.RPM}\nStalling: {self.stalling}\nOverspeed: {self.overspeed}\nGas Temp: {gas.temperature}\n\n")

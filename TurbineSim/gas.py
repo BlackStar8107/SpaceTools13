@@ -1,4 +1,5 @@
 from numbers import Number
+from copy import deepcopy
 
 # Global Variables #
 R_IDEAL_GAS_EQUATION = 8.3144626
@@ -15,6 +16,11 @@ class Gas():
         self.canister_number = 1
         self.recalc_moles()
         self.recalc_thermal_energy()
+        
+    def __copy__(self):
+        newone = type(self)()
+        newone.__dict__.update(self.__dict__)
+        return newone
         
     def mixture_pressure(self):
         self.recalc_moles()
