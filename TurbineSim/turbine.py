@@ -14,7 +14,7 @@ class Turbine():
     def __init__(self):
         # Initial Vars #
         self.lastgen = 0
-        self.stattor_load = 10000
+        self.stator_load = 10000
         self.RPM = 0
         self.turbine_mass = 1000
         self.best_RPM = 600
@@ -34,18 +34,11 @@ class Turbine():
     # Set Variables #
     def set_statorload(self,val):
         if val > 0 and isinstance(val, Number):
-            self.stattor_load = val
+            self.stator_load = val
             
     def set_flowrate(self,val):
         if val > 0 and isinstance(val, Number):
             self.flow_rate = val
-    
-    # Get Variables
-    def get_statorload(self):
-        return self.stattor_load
-    
-    def get_flowrate(self):
-        return self.stattor_load
     
     def sech(self,x):
         return (2 / ((EULERS ** x) - 1) + ((EULERS ** x) + 0.000001))
@@ -58,14 +51,15 @@ class Turbine():
         self.air_contents = copy(self.gas_content)
         gas = self.gas_content
         
-        print(f"Gasinit: {gas.temperature}\nNewGas: {self.air_contents.temperature}")
+        logger.debug(f"Gasinit: {gas.temperature} mol",)
+        logger.debug(f"NewGas: {self.air_contents.temperature} mol")
         if len(self.history) > self.history_max:
             self.history.pop(0) # Remove the OLDEST entry
         
-        self.history.append([self.RPM,self.stattor_load,self.lastgen])
+        self.history.append([self.RPM,self.stator_load,self.lastgen])
         
         input_starting_pressure = gas.mixture_pressure()
-        logger.debug(f"Starting Pressure: {input_starting_pressure}")
+        logger.debug(f"Starting Pressure: {input_starting_pressure}kPa")
         
         transfer_moles = 0
         
@@ -79,7 +73,7 @@ class Turbine():
         self.undertemp = gas.temperature < gas.c_to_k(20)
         
         if(gas.temperature > 3000):
-            print(f"Turbine overheating!\n Temperature: {gas.temperature}!")
+            logger.warning(f"Turbine overheating!\n Temperature: {gas.temperature}K!")
         else:
             gas.recalc_thermal_energy()
             input_starting_energy = gas.thermal_energy
@@ -92,9 +86,13 @@ class Turbine():
             if gas.temperature > gas.c_to_k(20):
                 gas.set_temperature(self.byond_round(max((input_starting_energy - ((input_starting_energy - (input_heat_cap * gas.c_to_k(20))) * .8)) / input_heat_cap,gas.c_to_k(20)),0.01))
                 
+            gas.recalc_thermal_energy()
             output_starting_energy = gas.thermal_energy
-            energy_generated = self.stattor_load * (self.RPM / 60)
+            energy_generated = self.stator_load * (self.RPM / 60)
             delta_E = input_starting_energy - output_starting_energy
+            logger.debug(f"input_starting_energy: {input_starting_energy}")
+            logger.debug(f"output_starting_energy: {output_starting_energy}")
+            logger.debug(f"Delta_E: {delta_E}")
             
             newRPM = 0
             
@@ -103,7 +101,7 @@ class Turbine():
             else:
                 newRPM = self.RPM - sqrt(2 * (max(energy_generated - delta_E,0)) / self.turbine_mass)
                 
-            nextgen = self.stattor_load * (max(newRPM,0) / 60)
+            nextgen = self.stator_load * (max(newRPM,0) / 60)
             nextRPM = 0
             
             if delta_E - nextgen > 0:
@@ -118,11 +116,16 @@ class Turbine():
                 self.stalling = False
                 self.RPM = nextRPM
             
-            self.lastgen = self.stattor_load * (self.RPM / 60) * self.sech(0.01 * (self.RPM - self.best_RPM))
+            self.lastgen = self.stator_load * (self.RPM / 60) * self.sech(0.01 * (self.RPM - self.best_RPM))
             
             self.overspeed = self.RPM > self.best_RPM * 1.2
             
             self.gas_content.volume = self.flow_rate
             self.air_contents.volume = self.flow_rate
             
-            print(f"RPM:{self.RPM}\nStalling: {self.stalling}\nOverspeed: {self.overspeed}\nGas Temp: {gas.temperature}\n\n")
+            logger.info(f"RPM:{self.RPM}")
+            logger.debug(f"NewRPM: {newRPM}")
+            logger.debug(f"NextRPM: {nextRPM}")
+            logger.debug(f"Stalling: {self.stalling}")
+            logger.debug(f"Overspeed: {self.overspeed}")
+            logger.debug(f"Gas Temp: {gas.temperature}K")
