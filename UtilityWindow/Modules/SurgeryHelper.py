@@ -145,5 +145,36 @@ class SurgeryHelper:
     def getResource(self,resource_name):
         return "/Resources/".join(resource_name).join(".png")
 
+    def chemCheck(self,chem):
+        match chem:
+            # For now recursive recipies are dicts inside of the recipie
+            # The LAST part of the dict is ALWAYS the RESULT!!!
+            # Will need to check for "Temp" if recipie requires a certain temp!!
+            case "Stypic Powder":
+                # TODO: Work out how to handle these weird recursive recipies
+                return {
+                    "Aluminium":1,
+                    "Oxygen":1,
+                    "Hydrogen":1,
+                    "Sulfuric Acid":{"Val":1,"Sulfur":1,"Hydrogen":1,"Oxygen":1,"Sulfuric Acid":2},
+                    "Stypic Poweder":4,
+                }
+            case "Silver Sulfadiazine":
+                return {
+                    "Silver":1,
+                    "Sulfer":1,
+                    "Oxygen":1,
+                    "Chlorine":1,
+                    "Ammonia":{"Val":1,"Hydrogen":3,"Nitrogen":1,"Ammonia":3},
+                    "Silver Sulfadiazine":5,
+                }
+            case "Charcoal":
+                # TODO: Make sure to impliment temp!
+                return{
+                    "Ash":{"Val":1,"Paper":1,"Temp":424,"Ash":1},
+                    "Salt":{"Val":1,"Chlorine":1,"Sodium":1,"Water","Salt":2}
+                }
+
+
 
 _ = SurgeryHelper()

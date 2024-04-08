@@ -106,7 +106,7 @@ ___
 _<center>Vivamus moriendum est</center>_
 ___
 
-**<center>ID No. [____]** _(Official use only)</center>_
+**<center>ID No. [________]** _(Official use only)</center>_
 
 ## <center>Autopsy Record</center>
 <center>To be used for the recording of the results of medical autopsies. This may be admitted as evidence in a NanoTrasen Court of Space Law. Knowingly entering false details may result in the disqualification of the attending physician from medical practice.</center>
@@ -163,7 +163,7 @@ ___
 _<center>Vivamus moriendum est</center>_
 ___
 
-**<center>ID No. [____]** _(Official use only)</center>_
+**<center>ID No. [________]** _(Official use only)</center>_
 
 ## <center>Autopsy Record</center>
 <center>To be used for the recording of the results of medical autopsies. This may be admitted as evidence in a NanoTrasen Court of Space Law. Knowingly entering false details may result in the disqualification of the attending physician from medical practice.</center>
@@ -257,6 +257,53 @@ ___
 \\
 **(If Denial) Reason:**
 [____________________________________]
+
+**Shift Time:**
+\\
+\\
+\\
+\\
+\\
+**Overseeing Quartermaster's Signature:**
+[__________________]''',
+
+    "Requisition Form 2" : '''# <center>Cargonia Supply and Logistics Ltd.</center>
+_<center>NanoTrasen's premier courier and logistics firm</center>_
+___
+## <center>Supply Requisition Form</center>
+_<center>(Official use only)</center>_
+___
+## Please fill out the fields below with a pen
+
+**Department:**
+[____________________________________]
+
+**Request Due (Shift Time):** [_________]
+
+|  Qty  |                  Item                  | Price ($) |
+|:-----:|:--------------------------------------:|:---------:|
+| [___] | [____________________________________] |  [______] |
+| [___] | [____________________________________] |  [______] |
+| [___] | [____________________________________] |  [______] |
+| [___] | [____________________________________] |  [______] |
+| [___] | [____________________________________] |  [______] |
+|       |                       Total Price ($): |  [______] |
+
+_By signing this form, you agree to not hold Cargonia Supply and Logistics Limited liable for any damage, loss, or other misfortune incurred against yourself, your department, your corporation, any other entity which you may constitute or own, or your purchased goods. You also agree to not hold Cargonia Supply and Logistics Limited liable for the delayed or non-delivery of your goods should it not violate the rights and obligations granted to Cargonia Supply and Logistics Limited by NanoTrasen Space Law. You also agree that this purchase is within the best interests for the continued operation of your department or the station as a whole. You also agree that you are legally allowed to purchase these goods and that you are not purchasing them on the behalf of someone who cannot legally purchase these goods._
+
+**Requestor:**
+[____________________________________]
+___
+**For Official Use Only**
+
+**Sensitive/Restricted Goods?:** [__]
+
+**Validity Stamp:**
+\\
+\\
+\\
+\\
+\\
 
 **Shift Time:**
 \\
