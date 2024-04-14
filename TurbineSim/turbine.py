@@ -41,7 +41,8 @@ class Turbine():
             self.flow_rate = val
     
     def sech(self,x):
-        return (2 / ((EULERS ** x) - 1) + ((EULERS ** x) + 0.000001))
+        #return (2 / ((EULERS ** x) - 1) + ((EULERS ** -x) + 0.000001))
+        return (2 / ((EULERS ** x) + (EULERS ** -x) + 0.000001))
     
     def byond_round(self,x, y):
         return y * round(x/y)

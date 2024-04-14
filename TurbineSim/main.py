@@ -10,7 +10,7 @@ from os import curdir
 # Default Timestep for SS13 is 1
 TIMESTEP = .005
 # Reactor Temperature and Random Fluctuation
-REACTOR_OFFTEMP = 100
+REACTOR_OFFTEMP = 232
 REACTOR_TEMP_RANGE = 1
 # How many canisters of gas are in the turbine
 CANISTER_NUMBER = 1
@@ -32,11 +32,12 @@ def __init__():
     # KU = 0.6
     # KI = 0.36 or 360 or 36
     # KD = 0.09
-    #SimPID = PID.PIDController(600,.6,0,0)
-    SimPID = PID.PIDController(600,0.5,0.36,0.09)
+    # SimPID = PID.PIDController(600,.6,0,0)
+    SimPID = PID.PIDController(600,.6,.36,.09)
+    #SimPID = PID.PIDController(600,600,40,90)
     loguru.logger.info("Generated Turbine")
     SimTurbine.gas_content.set_canister_number(CANISTER_NUMBER)
-    SimTurbine.set_flowrate(200)
+    SimTurbine.set_flowrate(5000)
     #SimTurbine.set_statorload(75000)
     loguru.logger.info("Starting Simulation")
     for i in range(SIMULATION_LENGTH):
