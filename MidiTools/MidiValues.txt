@@ -1,0 +1,36 @@
+INSTRUMENT
+KEYS
+RANGE
+
+Guitar
+2@34$5%6^78*9(0qQwWeErtTyYuiIoOpPasSdDfgGhHjJkl
+d2 -> c6
+c4 = t
+
+Banjo
+0qQwWeErtTyYuiIoOpPasSdDfgGhHjJkl
+e3 -> c6
+
+Saxophone
+wWeErtTyYuiIoOpPasSdDfgGhHjJkl
+g3 -> c6
+
+Fiddle 
+eErtTyYuiIoOpPasSdDfgGhHjJklLzZxcCv
+a3 -> g6
+
+Trumpet
+0qQwWeErtTyYuiIoOpPasSdDfgGhHjJkl
+e3 -> c6
+
+Bass
+2@34$5%6^78*9(0qQwWeErtTyYuiIoOpPasSd
+d2 -> d5
+
+Electric Guitar
+34$5%6^78*9(0qQwWeErtTyYuiIoOpPasSdDfgGhHjJkl
+e2 -> c6
+
+Piano
+1!2@34$5%6^78*9(0qQwWeErtTyYuiIoOpPasSdDfgGhHjJklLzZxcCvVbBnm
+c2 -> c7
